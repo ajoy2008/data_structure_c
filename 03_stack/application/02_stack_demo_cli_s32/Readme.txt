@@ -1,0 +1,1 @@
+Planning for stack demonstration with CLI based approach
