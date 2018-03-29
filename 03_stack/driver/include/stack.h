@@ -18,7 +18,7 @@
 #include <arr_stk_generic.h>
 
 #define STK_            ARR_STK_
-#define stk_create	    arr_stk_create
+#define stk_create      arr_stk_create
 #define stk_is_empty    arr_stk_is_empty
 #define stk_is_full     arr_stk_is_full
 #define stk_push        arr_stk_push
@@ -34,7 +34,7 @@
 #include <arr_stk_s32.h>
 
 #define STK_S32_          ARR_STK_S32_
-#define stk_create_s32	  arr_stk_create_s32
+#define stk_create_s32    arr_stk_create_s32
 #define stk_is_empty_s32  arr_stk_is_empty_s32
 #define stk_is_full_s32   arr_stk_is_full_s32
 #define stk_push_s32      arr_stk_push_s32
@@ -49,7 +49,7 @@
 #include <arr_stk_u8.h>
 
 #define STK_U8_          ARR_STK_U8_
-#define stk_create_u8	 arr_stk_create_u8
+#define stk_create_u8    arr_stk_create_u8
 #define stk_is_empty_u8  arr_stk_is_empty_u8
 #define stk_is_full_u8   arr_stk_is_full_u8
 #define stk_push_u8      arr_stk_push_u8
@@ -64,7 +64,7 @@
 #include <list_stk_s32.h>
 
 #define STK_S32_         LIST_STK_S32_
-#define stk_create_s32	 list_stk_create_s32
+#define stk_create_s32   list_stk_create_s32
 #define stk_is_empty_s32 list_stk_is_empty_s32
 #define stk_push_s32     list_stk_push_s32
 #define stk_pop_s32      list_stk_pop_s32
@@ -73,11 +73,11 @@
 
 #endif
 
-#if defined(__LSTSTK_U8__)
+#if defined(__LIST_STK_U8__)
 #include <list_stk_u8.h>
 
 #define STK_U8_          LIST_STK_U8_
-#define stk_create_u8	 list_stk_create_u8
+#define stk_create_u8    list_stk_create_u8
 #define stk_is_empty_u8  list_stk_is_empty_u8
 #define stk_push_u8      list_stk_push_u8
 #define stk_pop_u8       list_stk_pop_u8
