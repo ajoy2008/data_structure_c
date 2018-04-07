@@ -1,1 +1,1 @@
-Planning for stack demonstration with CLI based approach
+A CLI based demonstration of S32 stack operations like PUSH and POP
