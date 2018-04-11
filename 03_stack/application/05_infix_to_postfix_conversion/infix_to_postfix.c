@@ -33,9 +33,9 @@ Postfix    : ERROR : Invalid expression
 
 /*
 NOTE :
-For array based stack operation, enable the flag __ARR_STK_U8__ in Makefile.
-For linked list based stack operation enable flag __LIST_STK_U8__ in Makefile.
-Currently default selection in Makefile is array based stack __ARR_STK_U8__
+For array based stack operation, enable the flag __ARR_STK_S8__ in Makefile.
+For linked list based stack operation enable flag __LIST_STK_S8__ in Makefile.
+Currently default selection in Makefile is array based stack __ARR_STK_S8__
 */
 
 #include <stack.h>
@@ -72,10 +72,10 @@ int infix_to_postfix(char *src, char *tgt)
   size_t len = strlen(src);
 
   // Create a character array stack
-  STK_U8_ *stk = stk_create_u8(STK_MAX_SIZE);
+  STK_S8_ *stk = stk_create_s8(STK_MAX_SIZE);
 
   // push a sentinel '$' in the stack
-  stk_push_u8(stk, '$');
+  stk_push_s8(stk, '$');
 
   // Start Scanning of the source string
   for(i=0; i<len; i++) {
@@ -85,23 +85,23 @@ int infix_to_postfix(char *src, char *tgt)
     }
     // If left parenthesis encountered during scanning then push it into stack
     else if(src[i] == '(') {
-      stk_push_u8(stk, src[i]) ;
+      stk_push_s8(stk, src[i]) ;
     }
     /* If right parenthesis encountered during scanning, then
     pop the element from stack till left parenthesis reached and
     each time add the popped element into target string */
     else if(src[i] == ')') {
-      top = stk_top_u8(stk) ;
+      top = stk_top_s8(stk) ;
       while (top != '$' && top != '(') {
-       *tgt = stk_pop_u8(stk) ;
+       *tgt = stk_pop_s8(stk) ;
         tgt++;
-        top = stk_top_u8(stk) ;
+        top = stk_top_s8(stk) ;
       }
       if (top == '$') {   // This section handle the case like : (1*2)+3)
         printf("\nInvalid Expression !!");
         exit(EXIT_FAILURE);
       } else {
-        stk_pop_u8(stk) ;
+        stk_pop_s8(stk) ;
       }
     }
     // If any of the operator encountered ?
@@ -112,23 +112,23 @@ int infix_to_postfix(char *src, char *tgt)
       current scanned operator, then POP the operator from stack
       and put it into target string,
       otherwise add the current scanned operator in stack */
-      top = stk_top_u8(stk) ;
+      top = stk_top_s8(stk) ;
       while( top != '$' && priority(top) >= priority(src[i])) {
-        *tgt = stk_pop_u8(stk) ;
+        *tgt = stk_pop_s8(stk) ;
         tgt++;
-        top = stk_top_u8(stk) ;
+        top = stk_top_s8(stk) ;
       }
-      stk_push_u8(stk, src[i]) ;
+      stk_push_s8(stk, src[i]) ;
     }
   }
   /* POP the elements from stack till it becomes empty
   and add to the target string simultaneously */
-  top = stk_top_u8(stk) ;
+  top = stk_top_s8(stk) ;
   while(top != '$') {
     if(top != '(') {
-      *tgt = stk_pop_u8(stk) ;
+      *tgt = stk_pop_s8(stk) ;
       tgt++ ;
-      top = stk_top_u8(stk) ;
+      top = stk_top_s8(stk) ;
     } else { // This section handles the case like : ((1*2)+3
       printf("\nInvalid Expression !!");
       exit(EXIT_FAILURE);
@@ -136,17 +136,17 @@ int infix_to_postfix(char *src, char *tgt)
   }
   *tgt = '\0' ;
   // Free up the stack after operation
-  stk_delete_u8(stk);
+  stk_delete_s8(stk);
   return(EXIT_SUCCESS);
 }
 
 /*******************************************************************************
  PURPOSE:  Evaluation of postfix expression
 *******************************************************************************/
-int postfix_evaluation(char *src, long int *result)
+int postfix_evaluation(char *src, char *result)
 {
-  STK_U8_ *stk = stk_create_u8(STK_MAX_SIZE);
-  long int n1, n2, n3 ;
+  STK_S8_ *stk = stk_create_s8(STK_MAX_SIZE);
+  char n1, n2, n3 ;
   while(*src) {
     // Ignore spaces in the source string
     if(*src == ' '|| *src == '\t') {
@@ -159,11 +159,11 @@ int postfix_evaluation(char *src, long int *result)
       exit(EXIT_FAILURE);
     }
     else if(isdigit(*src)) {
-      stk_push_u8(stk, *src) ;
+      stk_push_s8(stk, *src) ;
     }
     else {
-      n1 = (stk_pop_u8(stk) - '0');
-      n2 = (stk_pop_u8(stk) - '0');
+      n1 = (stk_pop_s8(stk) - '0');
+      n2 = (stk_pop_s8(stk) - '0');
 
       switch(*src) {
         case '+':
@@ -188,11 +188,11 @@ int postfix_evaluation(char *src, long int *result)
           printf("\nUnknown operator");
           exit(EXIT_FAILURE);
       }
-      stk_push_u8(stk, n3 + '0');
+      stk_push_s8(stk, n3 + '0');
     }
     src++ ;
   }
-  *result = (stk_pop_u8(stk) - '0');
+  *result = (stk_pop_s8(stk) - '0');
   return EXIT_SUCCESS;
 }
 
@@ -203,7 +203,7 @@ int postfix_evaluation(char *src, long int *result)
 int main(void)
 {
   char source[STK_MAX_SIZE], target[STK_MAX_SIZE] ;
-  long int result ;
+  char result ;
   printf("\nEnter the infix expression :");
   gets(source);
   printf("\nInfix :");
@@ -217,7 +217,7 @@ int main(void)
   }
   printf("\nEvaluating postfix expression....");
   if(EXIT_SUCCESS == postfix_evaluation(target, &result)) {
-    printf("\nResult = %ld\n", result);
+    printf("\nResult = %d\n", result);
   } else {
     exit(EXIT_FAILURE);
   }

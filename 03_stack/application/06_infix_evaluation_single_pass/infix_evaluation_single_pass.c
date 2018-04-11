@@ -27,9 +27,9 @@ Postfix    : ERROR : Invalid expression
 
 /*
 NOTE :
-For array based stack operation, enable the flag __ARR_STK_U8__ in Makefile.
-For linked list based stack operation enable flag __LIST_STK_U8__ in Makefile.
-Currently default selection in Makefile is array based stack __ARR_STK_U8__
+For array based stack operation, enable the flag __ARR_STK_S8__ in Makefile.
+For linked list based stack operation enable flag __LIST_STK_S8__ in Makefile.
+Currently default selection in Makefile is array based stack __ARR_STK_S8__
 */
 
 #include <stack.h>
@@ -93,64 +93,66 @@ int priority(char operator)
 *******************************************************************************/
 int infix_evaluation_single_pass(char *src, char *result)
 {
-  unsigned char operand_1, operand_2, operator;
+  char operand_1, operand_2, operator;
   size_t i ;
   size_t len = strlen(src);
 
   // Create a operator stack {for operators and parentheses}
-  STK_U8_ *operator_stk = stk_create_u8(STK_MAX_SIZE);
+  STK_S8_ *operator_stk = stk_create_s8(STK_MAX_SIZE);
   // Create a operand stack
-  STK_U8_ *operand_stk = stk_create_u8(STK_MAX_SIZE);
+  STK_S8_ *operand_stk = stk_create_s8(STK_MAX_SIZE);
 
   // Start Scanning of the source string
   for(i=0; i<len; i++) {
     if(isdigit(src[i])) {
-      stk_push_u8(operand_stk, src[i]);
+      stk_push_s8(operand_stk, src[i]);
     } else if(src[i] == '(') {
-      stk_push_u8(operator_stk, src[i]);
+      stk_push_s8(operator_stk, src[i]);
     } else if(src[i] == ')') {
-      while(!stk_is_empty_u8(operator_stk) && stk_top_u8(operator_stk) != '(') {
-        operand_1 = stk_pop_u8(operand_stk) - '0';
-        operand_2 = stk_pop_u8(operand_stk) - '0';
-        operator  = stk_pop_u8(operator_stk) ;
-        stk_push_u8(operand_stk, evaluate(operand_1, operand_2, operator)) ;
+      while(!stk_is_empty_s8(operator_stk) && stk_top_s8(operator_stk) != '(') {
+        operand_1 = stk_pop_s8(operand_stk) - '0';
+        operand_2 = stk_pop_s8(operand_stk) - '0';
+        operator  = stk_pop_s8(operator_stk) ;
+        stk_push_s8(operand_stk, evaluate(operand_1, operand_2, operator)) ;
       }
-      if(stk_is_empty_u8(operator_stk)) {   // This section handle the case like : (1*2)+3)
+      if(stk_is_empty_s8(operator_stk)) {// This section handle the case like : (1*2)+3)
         printf("\nInvalid Expression !!");
         exit(EXIT_FAILURE);
       } else {
-        stk_pop_u8(operator_stk) ;
+        stk_pop_s8(operator_stk) ;
       }
     } else if (src[i] == '^' || src[i] == '*' || src[i] == '/' ||
                src[i] == '%' || src[i] == '+' || src[i] == '-' ) {
-        while(!stk_is_empty_u8(operator_stk) &&
-               priority(stk_top_u8(operator_stk)) >= priority(src[i])) {
-          operand_1 = stk_pop_u8(operand_stk) - '0';
-          operand_2 = stk_pop_u8(operand_stk) - '0';
-          operator  = stk_pop_u8(operator_stk) ;
-          stk_push_u8(operand_stk, evaluate(operand_1, operand_2, operator)) ;
+        while(!stk_is_empty_s8(operator_stk) &&
+               priority(stk_top_s8(operator_stk)) >= priority(src[i])) {
+          operand_1 = stk_pop_s8(operand_stk) - '0';
+          operand_2 = stk_pop_s8(operand_stk) - '0';
+          operator  = stk_pop_s8(operator_stk) ;
+          stk_push_s8(operand_stk, evaluate(operand_1, operand_2, operator)) ;
         }
-        stk_push_u8(operator_stk, src[i]) ;
+        stk_push_s8(operator_stk, src[i]) ;
     }
   }
-  while(!stk_is_empty_u8(operator_stk)) {
-	if(stk_top_u8(operator_stk) != '(') {
-      operand_1 = stk_pop_u8(operand_stk) - '0';
-      operand_2 = stk_pop_u8(operand_stk) - '0';
-      operator  = stk_pop_u8(operator_stk) ;
-      stk_push_u8(operand_stk, evaluate(operand_1, operand_2, operator)) ;
-	} else {
-	  printf("\nInvalid Expression !!");
+  while(!stk_is_empty_s8(operator_stk)) {
+    if(stk_top_s8(operator_stk) != '(') {
+      operand_1 = stk_pop_s8(operand_stk) - '0';
+      operand_2 = stk_pop_s8(operand_stk) - '0';
+      operator  = stk_pop_s8(operator_stk) ;
+      stk_push_s8(operand_stk, evaluate(operand_1, operand_2, operator)) ;
+    } else {
+      printf("\nInvalid Expression !!");
       exit(EXIT_FAILURE);
-	}
+    }
   }
-  if(stk_is_empty_u8(operand_stk)) {
+  if(!stk_is_empty_s8(operand_stk)) {
+    *result = stk_pop_s8(operand_stk) - '0';
+  } else {
     exit(EXIT_FAILURE);
   }
-  *result = stk_pop_u8(operand_stk) - '0';
+
   // Free up the stack after operation
-  stk_delete_u8(operator_stk);
-  stk_delete_u8(operand_stk);
+  stk_delete_s8(operator_stk);
+  stk_delete_s8(operand_stk);
   return(EXIT_SUCCESS);
 }
 

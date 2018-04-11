@@ -4,8 +4,8 @@ CC=gcc
 ADD_FLAGS = -g -Wall -Werror -Wno-uninitialized -Wno-unused-function -Wno-unused-but-set-variable
 
 # Select underlying stack implementation mechanism(Do you want Array based stack or linked list based stack ??)
-ADD_FLAGS += -D__ARR_STK_U8__
-#ADD_FLAGS += -D__LIST_STK_U8__
+ADD_FLAGS += -D__ARR_STK_S8__
+#ADD_FLAGS += -D__LIST_STK_S8__
 
 # Include path
 INC_PATH = -I$(RDIR)/driver/include
