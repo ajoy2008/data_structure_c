@@ -45,18 +45,18 @@
 
 #endif
 
-#if defined(__ARR_STK_U8__)
-#include <arr_stk_u8.h>
+#if defined(__ARR_STK_S8__)
+#include <arr_stk_s8.h>
 
-#define STK_U8_          ARR_STK_U8_
-#define stk_create_u8    arr_stk_create_u8
-#define stk_is_empty_u8  arr_stk_is_empty_u8
-#define stk_is_full_u8   arr_stk_is_full_u8
-#define stk_push_u8      arr_stk_push_u8
-#define stk_pop_u8       arr_stk_pop_u8
-#define stk_top_u8       arr_stk_top_u8
-#define stk_size_u8      arr_stk_size_u8
-#define stk_delete_u8    arr_stk_delete_u8
+#define STK_S8_          ARR_STK_S8_
+#define stk_create_s8    arr_stk_create_s8
+#define stk_is_empty_s8  arr_stk_is_empty_s8
+#define stk_is_full_s8   arr_stk_is_full_s8
+#define stk_push_s8      arr_stk_push_s8
+#define stk_pop_s8       arr_stk_pop_s8
+#define stk_top_s8       arr_stk_top_s8
+#define stk_size_s8      arr_stk_size_s8
+#define stk_delete_s8    arr_stk_delete_s8
 
 #endif
 
@@ -73,16 +73,16 @@
 
 #endif
 
-#if defined(__LIST_STK_U8__)
-#include <list_stk_u8.h>
+#if defined(__LIST_STK_S8__)
+#include <list_stk_s8.h>
 
-#define STK_U8_          LIST_STK_U8_
-#define stk_create_u8    list_stk_create_u8
-#define stk_is_empty_u8  list_stk_is_empty_u8
-#define stk_push_u8      list_stk_push_u8
-#define stk_pop_u8       list_stk_pop_u8
-#define stk_top_u8       list_stk_top_u8
-#define stk_delete_u8    list_stk_delete_u8
+#define STK_S8_          LIST_STK_S8_
+#define stk_create_s8    list_stk_create_s8
+#define stk_is_empty_s8  list_stk_is_empty_s8
+#define stk_push_s8      list_stk_push_s8
+#define stk_pop_s8       list_stk_pop_s8
+#define stk_top_s8       list_stk_top_s8
+#define stk_delete_s8    list_stk_delete_s8
 
 #endif
 

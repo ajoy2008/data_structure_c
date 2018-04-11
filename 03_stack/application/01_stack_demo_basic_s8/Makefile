@@ -4,8 +4,8 @@ CC=gcc
 ADD_FLAGS = -g -Wall -Werror -Wno-uninitialized -Wno-unused-function -Wno-unused-but-set-variable
 
 # Select underlying stack implementation mechanism(Do you want Array based stack or linked list based stack ??)
-ADD_FLAGS += -D__ARR_STK_U8__
-#ADD_FLAGS += -D__LIST_STK_U8__
+ADD_FLAGS += -D__ARR_STK_S8__
+#ADD_FLAGS += -D__LIST_STK_S8__
 
 # Include path
 INC_PATH = -I$(RDIR)/driver/include
@@ -19,7 +19,7 @@ OUTPUT_DIR = ./bin
 $(shell mkdir -p $(OUTPUT_DIR))
 
 all:
-	$(CC) stack_demo_basic_u8.c $(INC_PATH) -o $(OUTPUT_DIR)/stack_demo_basic_u8 $(INC_LIB) $(ADD_FLAGS)
+	$(CC) stack_demo_basic_s8.c $(INC_PATH) -o $(OUTPUT_DIR)/stack_demo_basic_s8 $(INC_LIB) $(ADD_FLAGS)
 clean:
 	rm -rf $(OUTPUT_DIR)
 
