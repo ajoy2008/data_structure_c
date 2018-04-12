@@ -11,6 +11,19 @@
  \copyright  House No 30, 16th Main 15th Cross
  \copyright  Bangalore - 560076
 *******************************************************************************/
+/*
+Input  : a+b*(c^d-e)^(f+g*h)-i
+Output : BALANCED
+
+Input  : ((5/(7-(1+1)))*3)-(2+(1+1))
+Output : BALANCED
+
+Input  : ((1*2)+3
+Output : UNBALANCED
+
+Input  : (1*2)+3)
+Output : UNBALANCED
+*/
 #include <stack.h>
 #include <string.h>
 
@@ -23,44 +36,34 @@
 *******************************************************************************/
 int is_parenthesis_balanced(char *src)
 {
-  int ret ;
-  char pop ;
-  STK_U8_ *stk = stk_create_u8(STK_MAX_SIZE);
-	
+  STK_S8_ *stk = stk_create_s8(STK_MAX_SIZE);
+  int ret = UNBALANCED ;
   /* Start Scanning */
   while(*src) {
     // If left parenthesis encountered then push it into stack
     if(*src == '(') {
-      stk_push_u8(stk, *src) ; 
-    }
-    // If right parenthesis encountered... 
-    if(*src == ')') {
-      // if stack is empty then return error
-      if(stk_is_empty_u8(stk)) {
-        ret  = UNBALANCED ;
+      stk_push_s8(stk, *src) ;
+    } else if(*src == ')') {
+      while(!stk_is_empty_s8(stk) && stk_top_s8(stk) != '(') {
+        stk_pop_s8(stk);
+      }
+      if(stk_is_empty_s8(stk)) {
         return (ret) ;
-      } else { // Otherwise, Start popping till the left parenthesis reached
-        pop = stk_pop_u8(stk) ;
-        while(pop != '(') {
-		  if(! stk_is_empty_u8(stk))
-            pop = stk_pop_u8(Stk);
-	      else
-		    break ;
-        }
-      }        
+      } else {
+        stk_pop_s8(stk);
+      }
     }
-
     // Scan the next element
-    Src++ ;
+    src++ ;
   }
 
   // At the end empty stack implies success, otherwise failure
-  ex = StkIsEmpty_U8(Stk) ? BALANCED : UNBALANCED ;
+  ret = stk_is_empty_s8(stk) ? BALANCED : UNBALANCED ;
 
   // Delete the stack to free the memory
-  StkDelete_U8(Stk);
+  stk_delete_s8(stk);
 
-  return(ex);
+  return(ret);
 }
 
 
@@ -69,7 +72,7 @@ int is_parenthesis_balanced(char *src)
   \details  Main program starts from here
   \return   Zero
 *******************************************************************************/
-int  main(void)
+int main(void)
 {
   char src[STK_MAX_SIZE];
   int result ;
@@ -77,11 +80,7 @@ int  main(void)
   gets(src);
 
   result = is_parenthesis_balanced(src);
-   
-  if(result != BALANCED)
-    printf("\nUNBALANCED\n");
-  else
-    printf("\nBALANCED\n");
+  printf("\n%s\n", result ? "UNBALANCED" : "BALANCED");
 
   return 0;
 }
