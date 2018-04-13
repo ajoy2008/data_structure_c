@@ -15,7 +15,7 @@
 Input  : a+b*(c^d-e)^(f+g*h)-i
 Output : BALANCED
 
-Input  : ((5/(7-(1+1)))*3)-(2+(1+1))
+Input  : [5/{7-(1+1)}]-[{2+(1+1)}]
 Output : BALANCED
 
 Input  : ((1*2)+3
@@ -32,6 +32,21 @@ Output : UNBALANCED
 #define UNBALANCED  -1
 
 /*******************************************************************************
+ PURPOSE:  API to verify wheather matching pair exist or not
+*******************************************************************************/
+int is_matching_pair(char ch1, char ch2)
+{
+  if (ch1 == '(' && ch2 == ')')
+    return 1;
+  else if (ch1 == '{' && ch2 == '}')
+    return 1;
+  else if (ch1 == '[' && ch2 == ']')
+    return 1;
+  else
+    return 0;
+}
+
+/*******************************************************************************
  PURPOSE:  Driver function to check the parenthesis balancing program
 *******************************************************************************/
 int is_parenthesis_balanced(char *src)
@@ -41,23 +56,20 @@ int is_parenthesis_balanced(char *src)
   /* Start Scanning */
   while(*src) {
     // If left parenthesis encountered then push it into stack
-    if(*src == '(') {
+    if(*src == '(' || *src == '{' || *src == '[') {
       stk_push_s8(stk, *src) ;
-    } else if(*src == ')') {
-      while(!stk_is_empty_s8(stk) && stk_top_s8(stk) != '(') {
-        stk_pop_s8(stk);
-      }
+    } else if(*src == ')' || *src == '}' || *src == ']') {
       if(stk_is_empty_s8(stk)) {
-        return (ret) ;
-      } else {
-        stk_pop_s8(stk);
+        return (UNBALANCED) ;
+      } else if( !is_matching_pair(stk_pop_s8(stk), *src)){
+        return (UNBALANCED) ;
       }
     }
     // Scan the next element
     src++ ;
   }
 
-  // At the end empty stack implies success, otherwise failure
+  // At the end empty stack implies Balanced, otherwise unbalanced
   ret = stk_is_empty_s8(stk) ? BALANCED : UNBALANCED ;
 
   // Delete the stack to free the memory
@@ -65,8 +77,6 @@ int is_parenthesis_balanced(char *src)
 
   return(ret);
 }
-
-
 
 /***************************************************************************//**
   \details  Main program starts from here

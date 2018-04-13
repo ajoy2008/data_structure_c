@@ -38,6 +38,11 @@ For linked list based stack operation enable flag __LIST_STK_S8__ in Makefile.
 Currently default selection in Makefile is array based stack __ARR_STK_S8__
 */
 
+/*
+ LIMITATION :
+ - This implementation only evaluates the expression of single digits numeric operands.
+*/
+
 #include <stack.h>
 #include <string.h>
 #include <ctype.h>
