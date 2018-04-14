@@ -1,10 +1,10 @@
 /***************************************************************************//**
- \addtogroup INFIX_TO_POSTFIX
+ \addtogroup INFIX_TO_PREFIX
  @{
 *******************************************************************************/
 /***************************************************************************//**
- \file       infix_to_postfix.c
- \details    infix to postfix conversion and postfix evaluation
+ \file       infix_to_prefix.c
+ \details    infix to prefix conversion and prefix expression evaluation
  \author     Ajoy Samanta
  \copyright  All Rights Reserved.
  \copyright  Ajoy
@@ -13,19 +13,19 @@
 *******************************************************************************/
 /*
 Infix      : a+b*(c^d-e)^(f+g*h)-i
-Postfix    : abcd^e-fgh*+^*+i-
+Prefix     : +a-*b^-^cde+f*ghi
 Evaluation : Not supported currently for character. Will implement in future.
 
 Infix      : ((5/(7-(1+1)))*3)-(2+(1+1))
-Postfix    : 5 7 1 1 + - / 3 * 2 1 1 + + -
+Prefix     : - * / 5 - 7 + 1 1 3 + 2 + 1 1
 Evaluation : -1
 
 Infix      : (1*2)+3
-Postfix    : 12*3+
+Prefix     : +*123
 Evaluation : 5
 
 Infix      : ((1*2)+3
-Postfix    : ERROR : Invalid expression
+Prefix     : ERROR : Invalid expression
 
 Infix      : (1*2)+3)
 Postfix    : ERROR : Invalid expression
@@ -50,47 +50,43 @@ Currently default selection in Makefile is array based stack __ARR_STK_S8__
 #define STK_MAX_SIZE 128
 
 /*******************************************************************************
- PURPOSE:  Evaluation of postfix expression
+ PURPOSE:  Evaluation of prefix expression
 *******************************************************************************/
-int postfix_evaluation(char *postfix, char *result)
+int prefix_evaluation(char *prefix, char *result)
 {
   STK_S8_ *stk = stk_create_s8(STK_MAX_SIZE);
+  size_t i, len ;
   char n1, n2, n3 ;
-  // Start scanning the postfix expression
-  while(*postfix) {
-    // Ignore spaces in the postfix string
-    if(*postfix == ' '|| *postfix == '\t') {
-      postfix++ ;
-      continue ;
-    }
-    if(isalpha(*postfix)) {
-      printf("\nPostfix of Alphabet is not implemented. Please provide digits!");
+  strrev(prefix);
+  len = strlen(prefix);
+  for(i= 0; i<len; i++) {
+    if(isalpha(prefix[i])) {
+      printf("\nPrefix evaluation of Alphabet is not implemented. Please provide digits!");
       exit(EXIT_FAILURE);
-    } else if(isdigit(*postfix)) { // If digits encountered then put it into postfix string
-      stk_push_s8(stk, *postfix) ;
-    }
-    else {
+    } else if(isdigit(prefix[i])) {
+      stk_push_s8(stk, prefix[i]);
+    } else if(prefix[i] == '^' || prefix[i] == '*' || prefix[i] == '/' ||
+              prefix[i] == '%' || prefix[i] == '+' || prefix[i] == '-') {
       n1 = (stk_pop_s8(stk) - '0');
       n2 = (stk_pop_s8(stk) - '0');
-
-      switch(*postfix) {
+      switch(prefix[i]) {
         case '+':
-          n3 = n2+n1 ;
+          n3 = n1+n2 ;
           break ;
         case '-':
-          n3 = n2-n1 ;
+          n3 = n1-n2 ;
           break ;
         case '/':
-          n3 = n2/n1 ;
+          n3 = n1/n2 ;
           break ;
         case '*':
-          n3 = n2*n1 ;
+          n3 = n1*n2 ;
           break ;
         case '%':
-          n3 = n2%n1 ;
+          n3 = n1%n2 ;
           break ;
         case '^':
-          n3 = pow(n2,n1) ;
+          n3 = pow(n1,n2) ;
           break ;
         default :
           printf("\nUnknown operator");
@@ -98,12 +94,10 @@ int postfix_evaluation(char *postfix, char *result)
       }
       stk_push_s8(stk, n3 + '0');
     }
-    postfix++ ;
   }
   *result = (stk_pop_s8(stk) - '0');
   return EXIT_SUCCESS;
 }
-
 
 /*******************************************************************************
  PURPOSE:  To determine the priority of the operator
@@ -124,41 +118,37 @@ int priority(char operator)
 }
 
 /*******************************************************************************
- PURPOSE:  Infix to postfix conversion
+ PURPOSE:  Infix to prefix conversion
 *******************************************************************************/
-int infix_to_postfix(char *infix, char *postfix)
+int infix_to_prefix(char *infix, char *prefix)
 {
-  char top;
-  size_t i ;
+  size_t i=0, j=0 ;
   size_t len = strlen(infix);
+
+  // Reverse the infix expression
+  strrev(infix);
 
   // Create a character array stack
   STK_S8_ *stk = stk_create_s8(STK_MAX_SIZE);
 
-  // push a sentinel '$' in the stack
-  stk_push_s8(stk, '$');
-
   // Start Scanning of the infix string
   for(i=0; i<len; i++) {
-    // If digits or alphabet encountered during scanning then put it into postfix string
+    // If digits or alphabet encountered during scanning then put it into prefix string
     if (isdigit(infix[i]) || isalpha(infix[i])) {
-      *postfix++ = infix[i] ;
+      prefix[j++] = infix[i] ;
     }
-    // If left parenthesis encountered during scanning then push it into stack
-    else if(infix[i] == '(') {
+    // If right parenthesis encountered during scanning then push it into stack
+    else if(infix[i] == ')') {
       stk_push_s8(stk, infix[i]) ;
     }
-    /* If right parenthesis encountered during scanning, then
-    pop the element from stack till left parenthesis reached and
-    each time add the popped element into postfix string */
-    else if(infix[i] == ')') {
-      top = stk_top_s8(stk) ;
-      while (top != '$' && top != '(') {
-       *postfix = stk_pop_s8(stk) ;
-        postfix++;
-        top = stk_top_s8(stk) ;
+    /* If left parenthesis encountered during scanning, then
+    pop the element from stack till right parenthesis reached and
+    each time add the popped element into prefix string from the end */
+    else if(infix[i] == '(') {
+      while (!stk_is_empty_s8(stk) && stk_top_s8(stk) != ')') {
+        prefix[j++] = stk_pop_s8(stk) ;
       }
-      if (top == '$') {   // This section handle the case like : (1*2)+3)
+      if (stk_is_empty_s8(stk)) {   // This section handle the case like : ((1*2)+3
         printf("\nInvalid Expression !!");
         exit(EXIT_FAILURE);
       } else {
@@ -166,36 +156,34 @@ int infix_to_postfix(char *infix, char *postfix)
       }
     }
     // If any of the operator encountered ?
-    else if(infix[i] == '^' || infix[i] == '*' || infix[i] == '/' || 
-	        infix[i] == '%' || infix[i] == '+' || infix[i] == '-') {
+    else if(infix[i] == '^' || infix[i] == '*' || infix[i] == '/' ||
+            infix[i] == '%' || infix[i] == '+' || infix[i] == '-') {
       /*
       If the priority of top operator is higher than the
       current scanned operator, then POP the operator from stack
-      and put it into postfix string,
+      and put it into prefix string,
       otherwise add the current scanned operator in stack */
-      top = stk_top_s8(stk) ;
-      while( top != '$' && priority(top) >= priority(infix[i])) {
-        *postfix = stk_pop_s8(stk) ;
-        postfix++;
-        top = stk_top_s8(stk) ;
+      while( !stk_is_empty_s8(stk) && priority(stk_top_s8(stk)) >= priority(infix[i])) {
+        prefix[j++] = stk_pop_s8(stk) ;
       }
       stk_push_s8(stk, infix[i]) ;
     }
   }
   /* POP the elements from stack till it becomes empty
-  and add to the postfix string simultaneously */
-  top = stk_top_s8(stk) ;
-  while(top != '$') {
-    if(top != '(') {
-      *postfix = stk_pop_s8(stk) ;
-      postfix++ ;
-      top = stk_top_s8(stk);
-    } else { // This section handles the case like : ((1*2)+3
+  and add to the prefix string simultaneously */
+  while(!stk_is_empty_s8(stk)) {
+    if(stk_top_s8(stk) != ')') {
+      prefix[j++] = stk_pop_s8(stk) ;
+    } else { // This section handles the case like : (1*2)+3)
       printf("\nInvalid Expression !!");
       exit(EXIT_FAILURE);
     }
   }
-  *postfix = '\0' ;
+  prefix[j] = '\0' ;
+
+  // Perform reverse to get the expected prefix expression
+  strrev(prefix);
+
   // Free up the stack after operation
   stk_delete_s8(stk);
   return(EXIT_SUCCESS);
@@ -207,21 +195,21 @@ int infix_to_postfix(char *infix, char *postfix)
 *******************************************************************************/
 int main(void)
 {
-  char infix[STK_MAX_SIZE], postfix[STK_MAX_SIZE] ;
+  char infix[STK_MAX_SIZE], prefix[STK_MAX_SIZE] ;
   char result ;
   printf("\nEnter the infix expression :");
   gets(infix);
   printf("\nInfix :");
   puts(infix);
 
-  if(EXIT_SUCCESS == infix_to_postfix(infix, postfix)) {
-    printf("\nPostfix :");
-    puts(postfix);
+  if(EXIT_SUCCESS == infix_to_prefix(infix, prefix)) {
+    printf("\nPrefix :");
+    puts(prefix);
   } else {
     exit(EXIT_FAILURE);
   }
-  printf("\nEvaluating postfix expression....");
-  if(EXIT_SUCCESS == postfix_evaluation(postfix, &result)) {
+  printf("\nEvaluating prefix expression....");
+  if(EXIT_SUCCESS == prefix_evaluation(prefix, &result)) {
     printf("\nResult = %d\n", result);
   } else {
     exit(EXIT_FAILURE);

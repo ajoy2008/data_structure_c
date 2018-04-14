@@ -19,8 +19,8 @@ OUTPUT_DIR = ./bin
 $(shell mkdir -p $(OUTPUT_DIR))
 
 all:
-	$(CC) infix_to_postfix.c $(INC_PATH) -o $(OUTPUT_DIR)/infix_to_postfix $(INC_LIB) $(ADD_FLAGS)
-	$(CC) infix_to_postfix_without_sentinel.c $(INC_PATH) -o $(OUTPUT_DIR)/infix_to_postfix_without_sentinel $(INC_LIB) $(ADD_FLAGS)
+	$(CC) infix_to_prefix.c $(INC_PATH) -o $(OUTPUT_DIR)/infix_to_prefix $(INC_LIB) $(ADD_FLAGS)
+	$(CC) infix_to_prefix_with_postfix_helper.c $(INC_PATH) -o $(OUTPUT_DIR)/infix_to_prefix_with_postfix_helper $(INC_LIB) $(ADD_FLAGS)
 clean:
 	rm -rf $(OUTPUT_DIR)
 

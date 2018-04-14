@@ -104,7 +104,6 @@ int postfix_evaluation(char *postfix, char *result)
   return EXIT_SUCCESS;
 }
 
-
 /*******************************************************************************
  PURPOSE:  To determine the priority of the operator
 *******************************************************************************/
@@ -128,15 +127,11 @@ int priority(char operator)
 *******************************************************************************/
 int infix_to_postfix(char *infix, char *postfix)
 {
-  char top;
   size_t i ;
   size_t len = strlen(infix);
 
   // Create a character array stack
   STK_S8_ *stk = stk_create_s8(STK_MAX_SIZE);
-
-  // push a sentinel '$' in the stack
-  stk_push_s8(stk, '$');
 
   // Start Scanning of the infix string
   for(i=0; i<len; i++) {
@@ -152,13 +147,10 @@ int infix_to_postfix(char *infix, char *postfix)
     pop the element from stack till left parenthesis reached and
     each time add the popped element into postfix string */
     else if(infix[i] == ')') {
-      top = stk_top_s8(stk) ;
-      while (top != '$' && top != '(') {
-       *postfix = stk_pop_s8(stk) ;
-        postfix++;
-        top = stk_top_s8(stk) ;
+      while (!stk_is_empty_s8(stk) && stk_top_s8(stk) != '(') {
+       *postfix++ = stk_pop_s8(stk) ;
       }
-      if (top == '$') {   // This section handle the case like : (1*2)+3)
+      if (stk_is_empty_s8(stk)) {// This section handle the case like : (1*2)+3)
         printf("\nInvalid Expression !!");
         exit(EXIT_FAILURE);
       } else {
@@ -173,23 +165,17 @@ int infix_to_postfix(char *infix, char *postfix)
       current scanned operator, then POP the operator from stack
       and put it into postfix string,
       otherwise add the current scanned operator in stack */
-      top = stk_top_s8(stk) ;
-      while( top != '$' && priority(top) >= priority(infix[i])) {
-        *postfix = stk_pop_s8(stk) ;
-        postfix++;
-        top = stk_top_s8(stk) ;
+      while( !stk_is_empty_s8(stk) && priority(stk_top_s8(stk)) >= priority(infix[i])) {
+        *postfix++ = stk_pop_s8(stk) ;
       }
       stk_push_s8(stk, infix[i]) ;
     }
   }
   /* POP the elements from stack till it becomes empty
   and add to the postfix string simultaneously */
-  top = stk_top_s8(stk) ;
-  while(top != '$') {
-    if(top != '(') {
-      *postfix = stk_pop_s8(stk) ;
-      postfix++ ;
-      top = stk_top_s8(stk);
+  while(!stk_is_empty_s8(stk)) {
+    if(stk_top_s8(stk) != '(') {
+      *postfix++ = stk_pop_s8(stk) ;
     } else { // This section handles the case like : ((1*2)+3
       printf("\nInvalid Expression !!");
       exit(EXIT_FAILURE);
