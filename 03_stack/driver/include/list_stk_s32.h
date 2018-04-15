@@ -7,7 +7,7 @@
  \details    LIST STK S32 interface specification
  \author     Ajoy Samanta
  \copyright  All Rights Reserved.
- \copyright  Ajoy Inc
+ \copyright  Ajoy
  \copyright  House No 30, 16th Main 15th Cross
  \copyright  Bangalore - 560076
 *******************************************************************************/
@@ -33,7 +33,7 @@ typedef struct STACK_NODE_S32_ LIST_STK_NODE_S32_  ; ///< List stack node of S32
 typedef struct
 {
   LIST_STK_NODE_S32_ *top ; ///< Pointer to the top node of the stack
-  
+
 }LIST_STK_S32_ ;
 
 /***************************************************************************//**
@@ -46,7 +46,7 @@ LIST_STK_S32_* list_stk_create_s32(
 
 /***************************************************************************//**
   \details  To check the list stack is empty or not
-  \return   1 --> EMPTY, 0 --> NOT-EMPTY 
+  \return   1 --> EMPTY, 0 --> NOT-EMPTY
 *******************************************************************************/
 int  list_stk_is_empty_s32(
   LIST_STK_S32_ *s         ///< [In] Pointer to the stack
@@ -58,7 +58,7 @@ int  list_stk_is_empty_s32(
 *******************************************************************************/
 void list_stk_push_s32(
   LIST_STK_S32_ *s,    ///< [In] Pointer to the stack
-  int data             ///< [In] Data to be pushed into the stack 
+  int data             ///< [In] Data to be pushed into the stack
   );
 
 /***************************************************************************//**
@@ -74,6 +74,22 @@ int  list_stk_pop_s32(
   \return   The top element of the stack
 *******************************************************************************/
 int  list_stk_top_s32(
+  LIST_STK_S32_ *s   ///< [In] Pointer to the stack
+  );
+
+/***************************************************************************//**
+  \details  To return the number of elements stored in the stack
+  \return   The current size of the stack
+*******************************************************************************/
+int  list_stk_size_s32(
+  LIST_STK_S32_ *s   ///< [In] Pointer to the stack
+  );
+
+/***************************************************************************//**
+  \details  To print the stack elements
+  \return
+*******************************************************************************/
+void  list_stk_print_s32(
   LIST_STK_S32_ *s   ///< [In] Pointer to the stack
   );
 

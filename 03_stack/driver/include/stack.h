@@ -41,6 +41,7 @@
 #define stk_pop_s32       arr_stk_pop_s32
 #define stk_top_s32       arr_stk_top_s32
 #define stk_size_s32      arr_stk_size_s32
+#define stk_print_s32     arr_stk_print_s32
 #define stk_delete_s32    arr_stk_delete_s32
 
 #endif
@@ -56,6 +57,7 @@
 #define stk_pop_s8       arr_stk_pop_s8
 #define stk_top_s8       arr_stk_top_s8
 #define stk_size_s8      arr_stk_size_s8
+#define stk_print_s8     arr_stk_print_s8
 #define stk_delete_s8    arr_stk_delete_s8
 
 #endif
@@ -69,6 +71,8 @@
 #define stk_push_s32     list_stk_push_s32
 #define stk_pop_s32      list_stk_pop_s32
 #define stk_top_s32      list_stk_top_s32
+#define stk_size_s32     list_stk_size_s32
+#define stk_print_s32    list_stk_print_s32
 #define stk_delete_s32   list_stk_delete_s32
 
 #endif
@@ -82,6 +86,8 @@
 #define stk_push_s8      list_stk_push_s8
 #define stk_pop_s8       list_stk_pop_s8
 #define stk_top_s8       list_stk_top_s8
+#define stk_size_s8      list_stk_size_s8
+#define stk_print_s8     list_stk_print_s8
 #define stk_delete_s8    list_stk_delete_s8
 
 #endif

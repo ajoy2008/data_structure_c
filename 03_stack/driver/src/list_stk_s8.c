@@ -18,11 +18,12 @@
 *******************************************************************************/
 LIST_STK_S8_* list_stk_create_s8(unsigned int stk_size)
 {
-    LIST_STK_S8_ *s = (LIST_STK_S8_ *)malloc(sizeof(LIST_STK_S8_)) ;
-    (void)stk_size ;
-    if(s != NULL)
-        s->top = NULL ;
-    return(s) ;
+  LIST_STK_S8_ *s = (LIST_STK_S8_ *)malloc(sizeof(LIST_STK_S8_)) ;
+  (void)stk_size ;
+  if(s != NULL) {
+    s->top = NULL ;
+  }
+  return(s) ;
 }
 
 /*******************************************************************************
@@ -31,7 +32,7 @@ LIST_STK_S8_* list_stk_create_s8(unsigned int stk_size)
 *******************************************************************************/
 int list_stk_is_empty_s8(LIST_STK_S8_ *s)
 {
-    return(s->top == NULL);
+  return(s->top == NULL);
 }
 
 /*******************************************************************************
@@ -40,14 +41,13 @@ int list_stk_is_empty_s8(LIST_STK_S8_ *s)
 *******************************************************************************/
 void list_stk_push_s8(LIST_STK_S8_ *s, char data)
 {
-    LIST_STK_NODE_S8_ *temp = (LIST_STK_NODE_S8_ *)malloc(sizeof(LIST_STK_NODE_S8_));
-
-    if(temp != NULL) {
-        temp->data = data ;
-        temp->link = s->top ;
-        s->top = temp;
-    }
-    return ;
+  LIST_STK_NODE_S8_ *temp = (LIST_STK_NODE_S8_ *)malloc(sizeof(LIST_STK_NODE_S8_));
+  if(temp != NULL) {
+    temp->data = data ;
+    temp->link = s->top ;
+    s->top = temp;
+  }
+  return ;
 }
 
 /*******************************************************************************
@@ -56,17 +56,17 @@ void list_stk_push_s8(LIST_STK_S8_ *s, char data)
 *******************************************************************************/
 char list_stk_pop_s8(LIST_STK_S8_ *s)
 {
-    LIST_STK_NODE_S8_ *temp ;
-    int data ;
-    if(list_stk_is_empty_s8(s)) {
-        printf("\nStack Underflow Error\n");
-        exit(EXIT_FAILURE);
-    }
-    temp = s->top ;
-    s->top = s->top->link ;
-    data = temp->data ;
-    free(temp);
-    return(data);
+  LIST_STK_NODE_S8_ *temp ;
+  int data ;
+  if(list_stk_is_empty_s8(s)) {
+    printf("\nStack Underflow Error\n");
+    exit(EXIT_FAILURE);
+  }
+  temp = s->top ;
+  s->top = s->top->link ;
+  data = temp->data ;
+  free(temp);
+  return(data);
 }
 
 /*******************************************************************************
@@ -75,11 +75,41 @@ char list_stk_pop_s8(LIST_STK_S8_ *s)
 *******************************************************************************/
 char list_stk_top_s8(LIST_STK_S8_ *s)
 {
-    if(list_stk_is_empty_s8(s)) {
-        printf("\nStack underflow error\n");
-        exit(EXIT_FAILURE);
-    }
-    return(s->top->data);
+  if(list_stk_is_empty_s8(s)) {
+    printf("\nStack underflow error\n");
+    exit(EXIT_FAILURE);
+  }
+  return(s->top->data);
+}
+
+/*******************************************************************************
+ PURPOSE:  To find the number of elements stored in the stack
+ COMMENT:
+*******************************************************************************/
+int list_stk_size_s8(LIST_STK_S8_ *s)
+{
+  LIST_STK_NODE_S8_ *temp = s->top ;
+  int size = 0;
+  while(temp != NULL) {
+    size++;
+    temp = temp->link;
+  }
+  return(size);
+}
+
+/*******************************************************************************
+ PURPOSE:  To print the list stack elements
+ COMMENT:
+*******************************************************************************/
+void list_stk_print_s8(LIST_STK_S8_ *s)
+{
+  LIST_STK_NODE_S8_ *temp = s->top ;
+  printf("\nTOP ===> ");
+  while(temp != NULL) {
+    printf("%c  ", temp->data);
+    temp = temp->link;
+  }
+  printf("\n");
 }
 
 /*******************************************************************************
@@ -88,16 +118,16 @@ char list_stk_top_s8(LIST_STK_S8_ *s)
 *******************************************************************************/
 void list_stk_delete_s8(LIST_STK_S8_ *s)
 {
-    LIST_STK_NODE_S8_ *temp ;
-    if(s != NULL){
-        while(s->top != NULL) {
-            temp = s->top ;
-            s->top = s->top->link ;
-            free(temp);
-        }
-        s->top = NULL ;
-        free(s);
+  LIST_STK_NODE_S8_ *temp ;
+  if(s != NULL){
+    while(s->top != NULL) {
+      temp = s->top ;
+      s->top = s->top->link ;
+      free(temp);
     }
-    return ;
+    s->top = NULL ;
+    free(s);
+  }
+  return ;
 }
 /** @} */

@@ -49,7 +49,7 @@ int  arr_stk_is_empty_s8(
   \return   1 : FULL, 0 : NOT-FULL
 *******************************************************************************/
 int  arr_stk_is_full_s8(
-  ARR_STK_S8_  *s      ///< [In] Pointer to the S32 stack
+  ARR_STK_S8_  *s      ///< [In] Pointer to the stack
   );
 
 /***************************************************************************//**
@@ -57,8 +57,8 @@ int  arr_stk_is_full_s8(
   \return   None
 *******************************************************************************/
 void arr_stk_push_s8(
-  ARR_STK_S8_ *s,      ///< [In] Pointer to the S32 stack
-  char data              ///< [In] Data to be pushed into the stack
+  ARR_STK_S8_ *s,      ///< [In] Pointer to the stack
+  char data            ///< [In] Data to be pushed into the stack
   );
 
 /***************************************************************************//**
@@ -66,7 +66,7 @@ void arr_stk_push_s8(
   \return   The recently popped element
 *******************************************************************************/
 char  arr_stk_pop_s8(
-  ARR_STK_S8_ *s       ///< [In] Pointer to the input stack
+  ARR_STK_S8_ *s       ///< [In] Pointer to the stack
   );
 
 /***************************************************************************//**
@@ -74,15 +74,23 @@ char  arr_stk_pop_s8(
   \return   The top element of the stack
 *******************************************************************************/
 char  arr_stk_top_s8(
-  ARR_STK_S8_ *s       ///< [In] Pointer to the input stack
+  ARR_STK_S8_ *s       ///< [In] Pointer to the stack
   );
 
 /***************************************************************************//**
   \details  To find the size of the stack
-  \return   The size of the stack
+  \return   The current size of the stack
 *******************************************************************************/
 int  arr_stk_size_s8(
-  ARR_STK_S8_ *s       ///< [In] Pointer to the input stack
+  ARR_STK_S8_ *s       ///< [In] Pointer to the stack
+  );
+
+/***************************************************************************//**
+  \details  To print the stack elements
+  \return
+*******************************************************************************/
+void  arr_stk_print_s8(
+  ARR_STK_S8_ *s   ///< [In] Pointer to the stack
   );
 
 /***************************************************************************//**
@@ -90,7 +98,7 @@ int  arr_stk_size_s8(
   \return   None
 *******************************************************************************/
 void  arr_stk_delete_s8(
-  ARR_STK_S8_ *s       ///< [In] Pointer to the input stack
+  ARR_STK_S8_ *s       ///< [In] Pointer to the stack
   );
 
 /** @} */

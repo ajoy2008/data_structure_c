@@ -22,38 +22,40 @@
 *******************************************************************************/
 int main(void)
 {
-    STK_S32_ *stk_s32 ;
-    int  P1, element1 ;
-    char ans ;
+  STK_S32_ *stk_s32 ;
+  int  pop, element ;
+  char ans ;
 
-    stk_s32 = stk_create_s32(MAX_STK_SIZE);
+  stk_s32 = stk_create_s32(MAX_STK_SIZE);
 
-    /****************************************************************************/
-    /*               DEMONSTRATION OF STACK PUSH OPERATION                      */
-    /****************************************************************************/
-    do {
-        printf("\nEnter a new integer element to be pushed into the stack:");
-        scanf("%d", &element1);
-        stk_push_s32(stk_s32, element1);
+  /****************************************************************************/
+  /*               DEMONSTRATION OF STACK PUSH OPERATION                      */
+  /****************************************************************************/
+  do
+  {
+    printf("\nEnter a new integer element to be pushed into the stack:");
+    scanf("%d", &element);
+    stk_push_s32(stk_s32, element);
+    stk_print_s32(stk_s32);
+    printf("\nDo you want to push a new element into the stack (y/n)?\n");
+    getchar();
+    scanf("%c", &ans);
+  }while(ans == 'y');
 
-        printf("\nDo you want to push a new element into the stack (y/n)?\n");
-        getchar();
-        scanf("%c", &ans);
-    }while(ans == 'y');
-
-    /****************************************************************************/
-    /*               DEMONSTRATION OF STACK POP OPERATION                       */
-    /****************************************************************************/
+  /****************************************************************************/
+  /*               DEMONSTRATION OF STACK POP OPERATION                       */
+  /****************************************************************************/
+  printf("\nDo you want to pop a new element (y/n)?\n");
+  getchar();
+  scanf("%c", &ans);
+  while(ans == 'y') {
+    pop = stk_pop_s32(stk_s32);
+    printf("\nPopped element : %d\n", pop);
+    stk_print_s32(stk_s32);
     printf("\nDo you want to pop a new element (y/n)?\n");
     getchar();
     scanf("%c", &ans);
-    while(ans == 'y') {
-        P1 = stk_pop_s32(stk_s32);
-        printf("\nPopped element : %d\n", P1);
-        printf("\nDo you want to pop a new element (y/n)?\n");
-        getchar();
-        scanf("%c", &ans);
-    }
-    stk_delete_s32(stk_s32) ;
-    return 0 ;
+  }
+  stk_delete_s32(stk_s32) ;
+  return 0 ;
 }

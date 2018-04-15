@@ -19,17 +19,17 @@
 *******************************************************************************/
 ARR_STK_S32_* arr_stk_create_s32(unsigned int stk_size)
 {
-    ARR_STK_S32_ *s = (ARR_STK_S32_ *)malloc(sizeof(ARR_STK_S32_));
-    if(s == NULL)
-        return NULL ;
+  ARR_STK_S32_ *s = (ARR_STK_S32_ *)malloc(sizeof(ARR_STK_S32_));
+  if(s == NULL)
+    return NULL ;
 
-    s->capacity = stk_size ;
-    s->top = -1 ;
-    s->arr = (int *)malloc(s->capacity * sizeof(int));
-    if(s->arr == NULL)
-        return NULL ;
-    else
-        return (s);
+  s->capacity = stk_size ;
+  s->top = -1 ;
+  s->arr = (int *)malloc(s->capacity * sizeof(int));
+  if(s->arr == NULL)
+    return NULL ;
+  else
+    return (s);
 }
 
 /*******************************************************************************
@@ -38,7 +38,7 @@ ARR_STK_S32_* arr_stk_create_s32(unsigned int stk_size)
 *******************************************************************************/
 int arr_stk_is_empty_s32(ARR_STK_S32_ *s)
 {
-    return(s->top == -1);
+  return(s->top == -1);
 }
 
 /*******************************************************************************
@@ -47,7 +47,7 @@ int arr_stk_is_empty_s32(ARR_STK_S32_ *s)
 *******************************************************************************/
 int arr_stk_is_full_s32(ARR_STK_S32_ *s)
 {
-    return(s->top == s->capacity - 1);
+  return(s->top == s->capacity - 1);
 }
 
 /*******************************************************************************
@@ -56,11 +56,11 @@ int arr_stk_is_full_s32(ARR_STK_S32_ *s)
 *******************************************************************************/
 void arr_stk_push_s32(ARR_STK_S32_ *s, int data)
 {
-    if(arr_stk_is_full_s32(s)) {
-        printf("\nStack Overflow Error\n");
-        exit(EXIT_FAILURE);
-    }
-    s->arr[++s->top] = data ;
+  if(arr_stk_is_full_s32(s)) {
+    printf("\nStack Overflow Error\n");
+    exit(EXIT_FAILURE);
+  }
+  s->arr[++s->top] = data ;
 }
 /*******************************************************************************
  PURPOSE:  To pop an element from the stack
@@ -68,11 +68,11 @@ void arr_stk_push_s32(ARR_STK_S32_ *s, int data)
 *******************************************************************************/
 int arr_stk_pop_s32(ARR_STK_S32_ *s)
 {
-    if(arr_stk_is_empty_s32(s)) {
-        printf("\nStack Underflow Error\n");
-        exit(EXIT_FAILURE);
-    }
-    return(s->arr[s->top--]);
+  if(arr_stk_is_empty_s32(s)) {
+    printf("\nStack Underflow Error\n");
+    exit(EXIT_FAILURE);
+  }
+  return(s->arr[s->top--]);
 }
 
 /*******************************************************************************
@@ -81,11 +81,11 @@ int arr_stk_pop_s32(ARR_STK_S32_ *s)
 *******************************************************************************/
 int arr_stk_top_s32(ARR_STK_S32_ *s)
 {
-    if(arr_stk_is_empty_s32(s)) {
-        printf("\nStack underflow error\n");
-        exit(EXIT_FAILURE);
-    }
-    return(s->arr[s->top]);
+  if(arr_stk_is_empty_s32(s)) {
+    printf("\nStack underflow error\n");
+    exit(EXIT_FAILURE);
+  }
+  return(s->arr[s->top]);
 }
 
 /*******************************************************************************
@@ -94,12 +94,25 @@ int arr_stk_top_s32(ARR_STK_S32_ *s)
 *******************************************************************************/
 int arr_stk_size_s32(ARR_STK_S32_ *s)
 {
-    if(arr_stk_is_full_s32(s)) {
-        return(s->capacity);
-    }
-    else {
-        return(s->top + 1);
-    }
+  if(arr_stk_is_full_s32(s)) {
+    return(s->capacity);
+  }
+  else {
+    return(s->top + 1);
+  }
+}
+
+/*******************************************************************************
+ PURPOSE:  To print the list stack elements
+ COMMENT:
+*******************************************************************************/
+void arr_stk_print_s32(ARR_STK_S32_ *s)
+{
+  int i = 0;
+  for(i=0; i<arr_stk_size_s32(s); i++) {
+    printf("%d ", s->arr[i]);
+  }
+  printf("<=== TOP\n");
 }
 
 /*******************************************************************************
@@ -108,12 +121,12 @@ int arr_stk_size_s32(ARR_STK_S32_ *s)
 *******************************************************************************/
 void arr_stk_delete_s32(ARR_STK_S32_ *s)
 {
-    if(s) {
-        if(s->arr){
-            free(s->arr);
-        }
-        free(s);
+  if(s) {
+    if(s->arr){
+      free(s->arr);
     }
-    return ;
+    free(s);
+  }
+  return ;
 }
 /** @} */

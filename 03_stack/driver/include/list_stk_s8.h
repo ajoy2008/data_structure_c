@@ -7,7 +7,7 @@
  \details    LIST STK S8 interface specification
  \author     Ajoy Samanta
  \copyright  All Rights Reserved.
- \copyright  Ajoy Inc
+ \copyright  Ajoy
  \copyright  House No 30, 16th Main 15th Cross
  \copyright  Bangalore - 560076
 *******************************************************************************/
@@ -46,23 +46,23 @@ LIST_STK_S8_* list_stk_create_s8(
 
 /***************************************************************************//**
   \details  To check the list stack is empty or not
-  \return   1 --> EMPTY, 0 --> NOT-EMPTY 
+  \return   1 --> EMPTY, 0 --> NOT-EMPTY
 *******************************************************************************/
 int  list_stk_is_empty_s8(
   LIST_STK_S8_ *s         ///< [In] Pointer to the stack
   );
 
 /***************************************************************************//**
-  \details  To push an element into the list stack
+  \details  To push an element into the stack
   \return   None
 *******************************************************************************/
 void list_stk_push_s8(
   LIST_STK_S8_ *s,    ///< [In] Pointer to the stack
-  char data             ///< [In] Data to be pushed into the stack 
+  char data           ///< [In] Data to be pushed into the stack
   );
 
 /***************************************************************************//**
-  \details  To pop an element from the list stack
+  \details  To pop an element from the stack
   \return   The recently popped element
 *******************************************************************************/
 char  list_stk_pop_s8(
@@ -70,10 +70,26 @@ char  list_stk_pop_s8(
   );
 
 /***************************************************************************//**
-  \details  To return the top element of the list stack without popping
+  \details  To return the top element of the stack without popping
   \return   The top element of the stack
 *******************************************************************************/
 char  list_stk_top_s8(
+  LIST_STK_S8_ *s   ///< [In] Pointer to the stack
+  );
+
+/***************************************************************************//**
+  \details  To find the size of the stack
+  \return   The current size of the stack
+*******************************************************************************/
+int  list_stk_size_s8(
+  LIST_STK_S8_ *s   ///< [In] Pointer to the stack
+  );
+
+/***************************************************************************//**
+  \details  To print the stack elements
+  \return
+*******************************************************************************/
+void  list_stk_print_s8(
   LIST_STK_S8_ *s   ///< [In] Pointer to the stack
   );
 
