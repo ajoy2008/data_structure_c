@@ -83,11 +83,11 @@ void quick_sort_nr(int *arr, int low, int high)
     high = stk_pop_s32(stk) ;
     low  = stk_pop_s32(stk) ;
     mid  = partition(arr, low, high);
-    if(mid-1 > low) {
+    if( low < mid-1) {
       stk_push_s32(stk, low);
       stk_push_s32(stk, mid - 1) ;
     }
-    if(mid+1 < high) {
+    if( high > mid+1) {
       stk_push_s32(stk, mid+1);
       stk_push_s32(stk, high) ;
     }

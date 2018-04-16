@@ -1,13 +1,13 @@
 /***************************************************************************//**
- \addtogroup STACK_DEMO_BASIC_S32
+ \addtogroup REVERSE_STACK
  @{
 *******************************************************************************/
 /***************************************************************************//**
- \file       stack_demo_basic_s32.c
- \details    Demonstration of Array or Linked List based stack operation
+ \file       reverse_stack_recursion.c
+ \details    Reverse a stack recursively
  \author     Ajoy Samanta
  \copyright  All Rights Reserved.
- \copyright  Ajoy Inc
+ \copyright  Ajoy
  \copyright  House No 30, 16th Main 15th Cross
  \copyright  Bangalore - 560076
 *******************************************************************************/
@@ -32,8 +32,8 @@ insert_bottom(4) : 4 3, 2, 1 <-- Top
 
 */
 /***************************************************************************//**
-  \details  The main function starts from here
-  \return   Zero
+  \details  Insert element at bottom
+  \return
 *******************************************************************************/
 void insert_at_bottom(STK_S32_ *stk_s32, int item)
 {
@@ -48,8 +48,8 @@ void insert_at_bottom(STK_S32_ *stk_s32, int item)
 }
 
 /***************************************************************************//**
-  \details  The main function starts from here
-  \return   Zero
+  \details  Reverse stack using recursion
+  \return
 *******************************************************************************/
 void reverse_stack_recursion(STK_S32_ *stk_s32)
 {
@@ -81,7 +81,7 @@ int main(void)
     printf("\nDo you want to push a new element into the stack (y/n)?\n");
     getchar();
     scanf("%c", &ans);
-  }while(ans == 'y');
+  } while(ans == 'y');
 
   printf("After stack reverse operation\n");
   reverse_stack_recursion(stk_s32) ;
