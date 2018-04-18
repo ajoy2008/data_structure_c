@@ -104,12 +104,10 @@ int list_stk_size_s32(LIST_STK_S32_ *s)
 void list_stk_print_s32(LIST_STK_S32_ *s)
 {
   LIST_STK_NODE_S32_ *temp = s->top ;
-  printf("\nTOP ===> ");
   while(temp != NULL) {
     printf("%d  ", temp->data);
     temp = temp->link;
   }
-  printf("\n");
 }
 
 /*******************************************************************************

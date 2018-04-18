@@ -31,16 +31,16 @@ int main(void)
   /****************************************************************************/
   /*               DEMONSTRATION OF STACK PUSH OPERATION                      */
   /****************************************************************************/
-  do
-  {
+  do {
     printf("\nEnter a new integer element to be pushed into the stack:");
     scanf("%d", &element);
     stk_push_s32(stk_s32, element);
+	printf("TOP ===>");
     stk_print_s32(stk_s32);
     printf("\nDo you want to push a new element into the stack (y/n)?\n");
     getchar();
     scanf("%c", &ans);
-  }while(ans == 'y');
+  } while(ans == 'y');
 
   /****************************************************************************/
   /*               DEMONSTRATION OF STACK POP OPERATION                       */
@@ -51,6 +51,7 @@ int main(void)
   while(ans == 'y') {
     pop = stk_pop_s32(stk_s32);
     printf("\nPopped element : %d\n", pop);
+	printf("TOP ===>");
     stk_print_s32(stk_s32);
     printf("\nDo you want to pop a new element (y/n)?\n");
     getchar();

@@ -109,10 +109,9 @@ int arr_stk_size_s8(ARR_STK_S8_ *s)
 void arr_stk_print_s8(ARR_STK_S8_ *s)
 {
   int i = 0;
-  for(i=0; i<arr_stk_size_s8(s); i++) {
+  for(i=arr_stk_size_s8(s)-1; i>=0; i--) {
     printf("%c  ", s->arr[i]);
   }
-  printf("<=== TOP\n");
 }
 
 /*******************************************************************************

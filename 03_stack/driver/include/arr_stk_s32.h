@@ -7,7 +7,7 @@
  \details    ARR STK S32 interface specification
  \author     Ajoy Samanta
  \copyright  All Rights Reserved.
- \copyright  Ajoy Inc
+ \copyright  Ajoy
  \copyright  House No 30, 16th Main 15th Cross
  \copyright  Bangalore - 560076
 *******************************************************************************/

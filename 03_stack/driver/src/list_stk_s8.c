@@ -104,12 +104,10 @@ int list_stk_size_s8(LIST_STK_S8_ *s)
 void list_stk_print_s8(LIST_STK_S8_ *s)
 {
   LIST_STK_NODE_S8_ *temp = s->top ;
-  printf("\nTOP ===> ");
   while(temp != NULL) {
     printf("%c  ", temp->data);
     temp = temp->link;
   }
-  printf("\n");
 }
 
 /*******************************************************************************

@@ -109,10 +109,9 @@ int arr_stk_size_s32(ARR_STK_S32_ *s)
 void arr_stk_print_s32(ARR_STK_S32_ *s)
 {
   int i = 0;
-  for(i=0; i<arr_stk_size_s32(s); i++) {
+  for(i=arr_stk_size_s32(s)-1; i>=0; i--) {
     printf("%d ", s->arr[i]);
   }
-  printf("<=== TOP\n");
 }
 
 /*******************************************************************************
