@@ -74,24 +74,12 @@ int postfix_evaluation(char *postfix, char *result)
       n2 = (stk_pop_s8(stk) - '0');
 
       switch(*postfix) {
-        case '+':
-          n3 = n2+n1 ;
-          break ;
-        case '-':
-          n3 = n2-n1 ;
-          break ;
-        case '/':
-          n3 = n2/n1 ;
-          break ;
-        case '*':
-          n3 = n2*n1 ;
-          break ;
-        case '%':
-          n3 = n2%n1 ;
-          break ;
-        case '^':
-          n3 = pow(n2,n1) ;
-          break ;
+        case '+': n3 = n2+n1 ; break ;
+        case '-': n3 = n2-n1 ; break ;
+        case '/': n3 = n2/n1 ; break ;
+        case '*': n3 = n2*n1 ; break ;
+        case '%': n3 = n2%n1 ; break ;
+        case '^': n3 = pow(n2,n1); break ;
         default :
           printf("\nUnknown operator");
           exit(EXIT_FAILURE);
@@ -158,8 +146,8 @@ int infix_to_postfix(char *infix, char *postfix)
       }
     }
     // If any of the operator encountered ?
-    else if(infix[i] == '^' || infix[i] == '*' || infix[i] == '/' || 
-	        infix[i] == '%' || infix[i] == '+' || infix[i] == '-') {
+    else if(infix[i] == '^' || infix[i] == '*' || infix[i] == '/' ||
+            infix[i] == '%' || infix[i] == '+' || infix[i] == '-') {
       /*
       If the priority of top operator is higher than the
       current scanned operator, then POP the operator from stack
