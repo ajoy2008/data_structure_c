@@ -7,7 +7,7 @@
  \details    Demonstration of Array or Linked List based stack operation
  \author     Ajoy Samanta
  \copyright  All Rights Reserved.
- \copyright  Ajoy Inc
+ \copyright  Ajoy
  \copyright  House No 30, 16th Main 15th Cross
  \copyright  Bangalore - 560076
 *******************************************************************************/
@@ -35,7 +35,7 @@ int main(void)
     printf("\nEnter a new character element to be pushed into the stack:");
     scanf(" %c", &element);
     stk_push_s8(stk_s8, element);
-	printf("TOP ===>");
+    printf("TOP ===>");
     stk_print_s8(stk_s8);
     printf("\nDo you want to push a new element into the stack (y/n)?\n");
     getchar();
@@ -51,7 +51,7 @@ int main(void)
   while(ans == 'y') {
     pop = stk_pop_s8(stk_s8);
     printf("\nPopped element : %c\n", pop);
-	printf("TOP ===>");
+    printf("TOP ===>");
     stk_print_s8(stk_s8);
     printf("\nDo you want to pop a new element (y/n)?\n");
     getchar();

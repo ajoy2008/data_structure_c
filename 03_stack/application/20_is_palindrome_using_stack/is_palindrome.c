@@ -20,9 +20,7 @@ output     : PALINDROME
 
 input      : "Geeks"
 output     : NOT PALINDROME
-
 */
-
 
 #include <stack.h>
 #include <string.h>
