@@ -62,6 +62,22 @@
 
 #endif
 
+#if defined(__ARR_STK_TWO_S32__)
+#include <arr_stk_two_s32.h>
+
+#define STK_TWO_S32_          ARR_STK_TWO_S32_
+#define stk_two_create_s32    arr_stk_two_create_s32
+#define stk_two_is_empty_s32  arr_stk_two_is_empty_s32
+#define stk_two_is_full_s32   arr_stk_two_is_full_s32
+#define stk_two_push_s32      arr_stk_two_push_s32
+#define stk_two_pop_s32       arr_stk_two_pop_s32
+#define stk_two_top_s32       arr_stk_two_top_s32
+#define stk_two_size_s32      arr_stk_two_size_s32
+#define stk_two_print_s32     arr_stk_two_print_s32
+#define stk_two_delete_s32    arr_stk_two_delete_s32
+
+#endif
+
 #if defined(__LIST_STK_S32__)
 #include <list_stk_s32.h>
 

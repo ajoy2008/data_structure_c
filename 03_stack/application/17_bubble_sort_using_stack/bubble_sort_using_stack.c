@@ -1,5 +1,5 @@
 /***************************************************************************//**
- \addtogroup QUICK_SORT
+ \addtogroup BUBBLE_SORT
  @{
 *******************************************************************************/
 /***************************************************************************//**
@@ -40,35 +40,35 @@ void bubble_sort(int *arr, int size)
   int i ;
   STK_S32_ *stk_1 = stk_create_s32(size);
   STK_S32_ *stk_2 = stk_create_s32(size);
-  
+
   // Push all elements of array in 1st stack
   for(i=0; i<size; i++) {
     stk_push_s32(stk_1, arr[i]);
   }
-  
+
   for (i=0; i<size; i++) {
     // alternatively
     if(i%2 == 0) {
       while (!stk_is_empty_s32(stk_1)) {
         if(!stk_is_empty_s32(stk_2) && stk_top_s32(stk_2) > stk_top_s32(stk_1)) {
-		  temp = stk_pop_s32(stk_2) ;
-		  stk_push_s32(stk_2, stk_pop_s32(stk_1));
-		  stk_push_s32(stk_2, temp);
-		} else {
-		  stk_push_s32(stk_2, stk_pop_s32(stk_1));
-		}
+          temp = stk_pop_s32(stk_2) ;
+          stk_push_s32(stk_2, stk_pop_s32(stk_1));
+          stk_push_s32(stk_2, temp);
+        } else {
+          stk_push_s32(stk_2, stk_pop_s32(stk_1));
+        }
       }
-	  // tricky step
+      // tricky step
       arr[size-i-1] = stk_pop_s32(stk_2);
     } else {
       while(!stk_is_empty_s32(stk_2)) {
         if(!stk_is_empty_s32(stk_1) && stk_top_s32(stk_1) > stk_top_s32(stk_2)) {
-		  temp = stk_pop_s32(stk_1) ;
-		  stk_push_s32(stk_1, stk_pop_s32(stk_2));
-		  stk_push_s32(stk_1, temp);
-		} else {
-		  stk_push_s32(stk_1, stk_pop_s32(stk_2));
-		}
+          temp = stk_pop_s32(stk_1) ;
+          stk_push_s32(stk_1, stk_pop_s32(stk_2));
+          stk_push_s32(stk_1, temp);
+        } else {
+          stk_push_s32(stk_1, stk_pop_s32(stk_2));
+        }
       }
       // tricky step
       arr[size-i-1] = stk_pop_s32(stk_1);
