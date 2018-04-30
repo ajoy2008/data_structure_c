@@ -78,6 +78,23 @@
 
 #endif
 
+#if defined(__ARR_STK_K_S32__)
+#include <arr_stk_k_s32.h>
+
+#define STK_K_S32_            ARR_STK_K_S32_
+#define stk_k_create_s32      arr_stk_k_create_s32
+#define stk_k_is_empty_s32    arr_stk_k_is_empty_s32
+#define stk_k_is_full_s32     arr_stk_k_is_full_s32
+#define stk_k_push_s32        arr_stk_k_push_s32
+#define stk_k_pop_s32         arr_stk_k_pop_s32
+#define stk_k_top_s32         arr_stk_k_top_s32
+#define stk_k_size_s32        arr_stk_k_size_s32
+#define stk_k_print_s32       arr_stk_k_print_s32
+#define stk_k_delete_s32      arr_stk_k_delete_s32
+#define stk_k_debug_print_s32 arr_stk_k_debug_print_s32
+
+#endif
+
 #if defined(__LIST_STK_S32__)
 #include <list_stk_s32.h>
 

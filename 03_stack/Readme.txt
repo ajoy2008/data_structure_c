@@ -36,16 +36,15 @@ Q: What is the speciality of stack driver design ??
    layer, application need not to worry about those changes.
    Application will still be same.
 
-[ NOTE : This kind of design can be adopted in a situation where let say,
-  You are working in common product for multiple customer.
-  Let say customer A uses TI controller at its bottom layer,
-  Customer B uses ARM controller at its bottom layer,
-  Customet C uses Atmel controller at its bottom layer.
-  But all customer uses a common application functionality.
+[ NOTE : This kind of design can be adopted in a situation where you are working
+  in common product for multiple customer. Let say customer A uses TI controller
+  at its bottom layer, Customer B uses ARM controller at its bottom layer and
+  Customet C uses Atmel controller at its bottom layer. But all customer uses a
+  common application functionality.
 
   Such kind of situation you no need to build 3 drivers and 3 application for
   3 customers. Instead You can design your controller specfic functionality
-  and abstract them to a common functionality (for example, spi_read(), spi_write(),
+  and abstract them to a common functionality (For ex, spi_read(), spi_write(),
   i2c_read(), i2c_write() etc) and then build a single application
   using this common functionality for all the customers.
 

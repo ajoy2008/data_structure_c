@@ -51,12 +51,9 @@ int arr_stk_two_is_empty_s32(ARR_STK_TWO_S32_ *s, STK_SEL_ stk_sel)
  PURPOSE:  To check the stack is full or not
  COMMENT:
 *******************************************************************************/
-int arr_stk_two_is_full_s32(ARR_STK_TWO_S32_ *s, STK_SEL_ stk_sel)
+int arr_stk_two_is_full_s32(ARR_STK_TWO_S32_ *s)
 {
-  if((stk_sel == STK_1) || (stk_sel == STK_2)) {
-    return((s->top2 - s->top1) == 1);
-  }
-  return(1); // For invalid input return true, indicating that stack is full
+  return((s->top2 - s->top1) == 1);
 }
 
 /*******************************************************************************
@@ -65,7 +62,7 @@ int arr_stk_two_is_full_s32(ARR_STK_TWO_S32_ *s, STK_SEL_ stk_sel)
 *******************************************************************************/
 void arr_stk_two_push_s32(ARR_STK_TWO_S32_ *s, STK_SEL_ stk_sel, int data)
 {
-  if(arr_stk_two_is_full_s32(s, stk_sel)) {
+  if(arr_stk_two_is_full_s32(s)) {
     printf("\nStack %d Overflow Error\n", stk_sel);
     exit(EXIT_FAILURE);
   }
