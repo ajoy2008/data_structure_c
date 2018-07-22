@@ -1,128 +1,133 @@
 /***************************************************************************//**
- \addtogroup ARR_STK_S32
+ \addtogroup LIST_STK_GENERIC
  @{
 *******************************************************************************/
 /***************************************************************************//**
- \file       arr_stk_s32.c
- \details    Array Stack S32 API Implementation
+ \file       list_stk_generic.c
+ \details    List Stack Generic API Implementation
  \author     Ajoy Samanta
  \copyright  All Rights Reserved.
- \copyright  Ajoy
+ \copyright  Ajoy Inc
  \copyright  House No 30, 16th Main 15th Cross
  \copyright  Bangalore - 560076
 *******************************************************************************/
-#include <arr_stk_s32.h>
-
+#include <list_stk_generic.h>
 /*******************************************************************************
-  PURPOSE:  To create an array stack
-  COMMENT:
+ PURPOSE: To create a list stack
+ COMMENT: Create an empty list
 *******************************************************************************/
-ARR_STK_S32_* arr_stk_create_s32(unsigned int stk_size)
+LIST_STK_* list_stk_create(size_t stk_size, size_t el_size)
 {
-  ARR_STK_S32_ *s = (ARR_STK_S32_ *)malloc(sizeof(ARR_STK_S32_));
-  if(s == NULL)
-    return NULL ;
-
-  s->capacity = stk_size ;
-  s->top = -1 ;
-  s->arr = (int *)malloc(s->capacity * sizeof(int));
-  if(s->arr == NULL)
-    return NULL ;
-  else
-    return (s);
-}
-
-/*******************************************************************************
- PURPOSE:  To check the array stack is empty or not
- COMMENT:
-*******************************************************************************/
-int arr_stk_is_empty_s32(ARR_STK_S32_ *s)
-{
-  return(s->top == -1);
-}
-
-/*******************************************************************************
- PURPOSE:  To check the stack is full or not
- COMMENT:
-*******************************************************************************/
-int arr_stk_is_full_s32(ARR_STK_S32_ *s)
-{
-  return(s->top == s->capacity - 1);
-}
-
-/*******************************************************************************
- PURPOSE:  To push an element into stack
- COMMENT:
-*******************************************************************************/
-void arr_stk_push_s32(ARR_STK_S32_ *s, int data)
-{
-  if(arr_stk_is_full_s32(s)) {
-    printf("\nStack Overflow Error\n");
-    exit(EXIT_FAILURE);
+  LIST_STK_ *s = (LIST_STK_ *)malloc(sizeof(LIST_STK_)) ;
+  (void)stk_size ;
+  s->el_size = el_size ;
+  if(s != NULL) {
+    s->top = NULL ;
   }
-  s->arr[++s->top] = data ;
+  return(s) ;
 }
+
 /*******************************************************************************
- PURPOSE:  To pop an element from the stack
+ PURPOSE:  To check the list stack is empty or not
  COMMENT:
 *******************************************************************************/
-int arr_stk_pop_s32(ARR_STK_S32_ *s)
+int list_stk_is_empty(LIST_STK_ *s)
 {
-  if(arr_stk_is_empty_s32(s)) {
+  return(s->top == NULL);
+}
+
+/*******************************************************************************
+ PURPOSE:  To push an element into list stack
+ COMMENT:  Same as adding a node beginning of the list
+*******************************************************************************/
+void list_stk_push(LIST_STK_ *s, void *data)
+{
+  LIST_STK_NODE_ *temp = (LIST_STK_NODE_ *)malloc(sizeof(LIST_STK_NODE_));
+  temp->data = (void *)malloc(s->el_size);
+  if(temp != NULL) {
+	memcpy(temp->data, data, s->el_size);
+    temp->link = s->top ;
+    s->top = temp;
+  }
+  return ;
+}
+
+/*******************************************************************************
+ PURPOSE:  To pop an element from the list stack
+ COMMENT:  Same as removing a node from beginning of the list
+*******************************************************************************/
+void* list_stk_pop(LIST_STK_ *s)
+{
+  LIST_STK_NODE_ *temp ;
+  void *data = (void *)malloc(s->el_size) ;
+  if(list_stk_is_empty(s)) {
     printf("\nStack Underflow Error\n");
     exit(EXIT_FAILURE);
   }
-  return(s->arr[s->top--]);
+  temp = s->top ;
+  s->top = s->top->link ;
+  memcpy(data, temp->data, s->el_size);
+  free(temp);
+  return(data);
 }
 
 /*******************************************************************************
- PURPOSE:  To return the top element from the stack without popping
+ PURPOSE:  To return the top element from the list stack without popping
  COMMENT:
 *******************************************************************************/
-int arr_stk_top_s32(ARR_STK_S32_ *s)
+void* list_stk_top(LIST_STK_ *s)
 {
-  if(arr_stk_is_empty_s32(s)) {
+  void *data = (void *)malloc(s->el_size) ;
+  if(list_stk_is_empty(s)) {
     printf("\nStack underflow error\n");
     exit(EXIT_FAILURE);
   }
-  return(s->arr[s->top]);
+  memcpy(data, s->top->data, s->el_size);
+  return(data);
 }
 
 /*******************************************************************************
  PURPOSE:  To find the number of elements stored in the stack
  COMMENT:
 *******************************************************************************/
-int arr_stk_size_s32(ARR_STK_S32_ *s)
+int list_stk_size(LIST_STK_ *s)
 {
-  if(arr_stk_is_full_s32(s)) {
-    return(s->capacity);
-  } else {
-    return(s->top + 1);
+  LIST_STK_NODE_ *temp = s->top ;
+  int size = 0;
+  while(temp != NULL) {
+    size++;
+    temp = temp->link;
   }
+  return(size);
 }
 
 /*******************************************************************************
  PURPOSE:  To print the list stack elements
  COMMENT:
 *******************************************************************************/
-void arr_stk_print_s32(ARR_STK_S32_ *s)
+void list_stk_print(LIST_STK_ *s, print_callback_t print)
 {
-  int i = 0;
-  for(i=arr_stk_size_s32(s)-1; i>=0; i--) {
-    printf("%d ", s->arr[i]);
+  LIST_STK_NODE_ *temp = s->top ;
+  while(temp != NULL) {
+    print(temp->data);
+    temp = temp->link;
   }
 }
 
 /*******************************************************************************
- PURPOSE:  To delete the array stack
+ PURPOSE:  To delete the list stack
  COMMENT:
 *******************************************************************************/
-void arr_stk_delete_s32(ARR_STK_S32_ *s)
+void list_stk_delete(LIST_STK_ *s)
 {
-  if(s) {
-    if(s->arr){
-      free(s->arr);
+  LIST_STK_NODE_ *temp ;
+  if(s != NULL){
+    while(s->top != NULL) {
+      temp = s->top ;
+      s->top = s->top->link ;
+      free(temp);
     }
+    s->top = NULL ;
     free(s);
   }
   return ;

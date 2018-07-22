@@ -4,7 +4,7 @@
 *******************************************************************************/
 /***************************************************************************//**
  \file       arr_stk_k_s32.c
- \details    Array Stack K S32 API Implementation
+ \details    K number of stack implementation using single array
  \author     Ajoy Samanta
  \copyright  All Rights Reserved.
  \copyright  Ajoy
@@ -14,7 +14,7 @@
 #include <arr_stk_k_s32.h>
 
 /*******************************************************************************
-  PURPOSE:  To create an array stack
+  PURPOSE:  To create K number of array stack using single array
   COMMENT:
 *******************************************************************************/
 ARR_STK_K_S32_* arr_stk_k_create_s32(unsigned int no_of_stacks, unsigned int size)
@@ -50,7 +50,7 @@ ARR_STK_K_S32_* arr_stk_k_create_s32(unsigned int no_of_stacks, unsigned int siz
 }
 
 /*******************************************************************************
- PURPOSE:  To check the array stack is empty or not
+ PURPOSE:  To check the Kth stack is empty or not
  COMMENT:
 *******************************************************************************/
 int arr_stk_k_is_empty_s32(ARR_STK_K_S32_ *s, unsigned int stk_sel)
@@ -68,7 +68,7 @@ int arr_stk_k_is_full_s32(ARR_STK_K_S32_ *s)
 }
 
 /*******************************************************************************
- PURPOSE:  To push an element into stack
+ PURPOSE:  To push an element into Kth stack
  COMMENT:
 *******************************************************************************/
 void arr_stk_k_push_s32(ARR_STK_K_S32_ *s, unsigned int stk_sel, int data)

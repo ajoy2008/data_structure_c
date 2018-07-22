@@ -16,25 +16,28 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 /**
 **  Data Structure for ARR_STK_
 */
 typedef struct
 {
-  int top       ;       ///< Tracks the top element of the stack
-  int capacity  ;       ///< Maximum capacity of the stack
-  void *arr     ;       ///< Stack container
+  int top          ;       ///< Tracks the top element of the stack
+  size_t capacity  ;       ///< Maximum capacity of the stack
+  size_t el_size   ;       ///< Size of each element of the stack
+  void *arr        ;       ///< Stack container
 
-}ARR_STK_;
+} ARR_STK_;
+
+typedef void (*print_callback_t)(void *);
 
 /***************************************************************************//**
   \details  Create an array stack gneric type
   \return   Pointer to generic ARR_STK_ structure
 *******************************************************************************/
-ARR_STK_* ArrStkCreate(
-  unsigned int stkSize, ///< [In] Generic array stack size
-  size_t el_size        ///< [In] Size of each element of the stack
+ARR_STK_* arr_stk_create(
+  size_t stk_size, ///< [In] Generic array stack size
+  size_t el_size   ///< [In] Size of each element of the stack
   ) ;
 
 /***************************************************************************//**
@@ -42,8 +45,7 @@ ARR_STK_* ArrStkCreate(
   \return   1 : EMPTY, 0 : NOT-EMPTY 
 *******************************************************************************/
 int  arr_stk_is_empty( 
-  ARR_STK_ *s,          ///< [In] Pointer to the generic array stack structure
-  size_t el_size        ///< [In] Size of each element of the stack
+  ARR_STK_ *s          ///< [In] Pointer to the generic array stack structure
   );
 
 /***************************************************************************//**
@@ -51,8 +53,7 @@ int  arr_stk_is_empty(
   \return   1 : FULL, 0 : NOT-FULL
 *******************************************************************************/
 int  arr_stk_is_full( 
-  ARR_STK_  *s,         ///< [In] Pointer to the generic array stack structure
-  size_t el_size        ///< [In] Size of each element of the stack
+  ARR_STK_  *s         ///< [In] Pointer to the generic array stack structure
   );
 
 /***************************************************************************//**
@@ -61,8 +62,7 @@ int  arr_stk_is_full(
 *******************************************************************************/
 void arr_stk_push( 
   ARR_STK_ *s,          ///< [In] Pointer to the generic array stack structure
-  void *data,           ///< [In] Pointer to the input data
-  size_t el_size        ///< [In] Size of each element of the stack
+  void *data            ///< [In] Pointer to the input data
   );
 
 /***************************************************************************//**
@@ -70,8 +70,7 @@ void arr_stk_push(
   \return   The recently popped element
 *******************************************************************************/
 void*  arr_stk_pop( 
-  ARR_STK_ *s,          ///< [In] Pointer to the generic array stack structure
-  size_t el_size        ///< [In] Size of each element of the stack
+  ARR_STK_ *s          ///< [In] Pointer to the generic array stack structure
   );
 
 /***************************************************************************//**
@@ -79,17 +78,7 @@ void*  arr_stk_pop(
   \return   The top element of the stack
 *******************************************************************************/
 void*  arr_stk_top( 
-  ARR_STK_ *s,          ///< [In] Pointer to the generic array stack structure
-  size_t el_size        ///< [In] Size of each element of the stack
-  );
-
-/***************************************************************************//**
-  \details  To return the top index of the stack
-  \return   The top index of the stack
-*******************************************************************************/
-int arr_stk_top_index(
-  ARR_STK_ *s, 
-  size_t el_size
+  ARR_STK_ *s          ///< [In] Pointer to the generic array stack structure
   );
 
 /***************************************************************************//**
@@ -97,8 +86,16 @@ int arr_stk_top_index(
   \return   The size of the stack
 *******************************************************************************/
 int  arr_stk_size( 
-  ARR_STK_ *s,          ///< [In] Pointer to the generic array stack structure
-  size_t el_size        ///< [In] Size of the each element of the stack
+  ARR_STK_ *s          ///< [In] Pointer to the generic array stack structure
+  );
+
+/***************************************************************************//**
+  \details  To find the size of the stack
+  \return   The size of the stack
+*******************************************************************************/
+void arr_stk_print(
+  ARR_STK_ *s,
+  print_callback_t print
   );
 
 /***************************************************************************//**

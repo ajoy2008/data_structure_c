@@ -63,7 +63,7 @@ void sort_stack_iterative(STK_S32_ *stk)
 {
   STK_S32_ *temp_stk = stk_create_s32(MAX_STK_SIZE);
   int element ;
-  while (!stk_is_empty_s32(stk)){
+  while (!stk_is_empty_s32(stk)) {
     element = stk_pop_s32(stk);
     while(!stk_is_empty_s32(temp_stk) && element > stk_top_s32(temp_stk)) {
       stk_push_s32(stk, stk_pop_s32(temp_stk));

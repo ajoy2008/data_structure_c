@@ -24,8 +24,8 @@
 #define stk_push        arr_stk_push
 #define stk_pop         arr_stk_pop
 #define stk_top         arr_stk_top
-#define stk_top_index   arr_stk_top_index
 #define stk_size        arr_stk_size
+#define stk_print       arr_stk_print
 #define stk_delete      arr_stk_delete
 
 #endif
@@ -92,6 +92,21 @@
 #define stk_k_print_s32       arr_stk_k_print_s32
 #define stk_k_delete_s32      arr_stk_k_delete_s32
 #define stk_k_debug_print_s32 arr_stk_k_debug_print_s32
+
+#endif
+
+#if defined(__LIST_STK_GENERIC__)
+#include <list_stk_generic.h>
+
+#define STK_            LIST_STK_
+#define stk_create      list_stk_create
+#define stk_is_empty    list_stk_is_empty
+#define stk_push        list_stk_push
+#define stk_pop         list_stk_pop
+#define stk_top         list_stk_top
+#define stk_size        list_stk_size
+#define stk_print       list_stk_print
+#define stk_delete      list_stk_delete
 
 #endif
 
