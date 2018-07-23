@@ -45,7 +45,7 @@ void list_stk_push(LIST_STK_ *s, void *data)
   LIST_STK_NODE_ *temp = (LIST_STK_NODE_ *)malloc(sizeof(LIST_STK_NODE_));
   temp->data = (void *)malloc(s->el_size);
   if(temp != NULL) {
-	memcpy(temp->data, data, s->el_size);
+    memcpy(temp->data, data, s->el_size);
     temp->link = s->top ;
     s->top = temp;
   }

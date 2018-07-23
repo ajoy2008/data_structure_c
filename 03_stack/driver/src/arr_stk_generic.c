@@ -121,7 +121,7 @@ void arr_stk_print(ARR_STK_ *s, print_callback_t print)
   void *target = (void *)malloc(s->el_size) ;
   for(i=arr_stk_size(s)-1; i>=0; i--) {
     void* source = (char*)s->arr + (i * s->el_size);
-	memcpy(target, source, s->el_size);
+    memcpy(target, source, s->el_size);
     print(target);
   }
 }
