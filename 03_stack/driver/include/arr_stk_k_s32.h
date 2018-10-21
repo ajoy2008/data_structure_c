@@ -11,8 +11,8 @@
  \copyright  House No 30, 16th Main 15th Cross
  \copyright  Bangalore - 560076
 *******************************************************************************/
-#ifndef _ARR_STK_TWO_S32_H_
-#define _ARR_STK_TWO_S32_H_  1
+#ifndef _ARR_STK_K_S32_H_
+#define _ARR_STK_K_S32_H_  1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +26,7 @@ typedef struct
   int *top  ;  ///< Array of size k to store indexes of top elements of stacks
   int *next ;  ///< Array of size n to store next entry in all stacks
   int n, k  ;
-  int fr  ; ///< To store beginning index of free list
+  int fr  ;    ///< To store beginning index of free list
 
 }ARR_STK_K_S32_;
 

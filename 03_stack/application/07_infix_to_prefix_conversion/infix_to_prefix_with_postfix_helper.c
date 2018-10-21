@@ -70,27 +70,13 @@ int prefix_evaluation(char *prefix, char *result)
       n1 = (stk_pop_s8(stk) - '0');
       n2 = (stk_pop_s8(stk) - '0');
       switch(prefix[i]) {
-        case '+':
-          n3 = n1+n2 ;
-          break ;
-        case '-':
-          n3 = n1-n2 ;
-          break ;
-        case '/':
-          n3 = n1/n2 ;
-          break ;
-        case '*':
-          n3 = n1*n2 ;
-          break ;
-        case '%':
-          n3 = n1%n2 ;
-          break ;
-        case '^':
-          n3 = pow(n1,n2) ;
-          break ;
-        default :
-          printf("\nUnknown operator");
-          exit(EXIT_FAILURE);
+        case '+': n3 = n1+n2 ; break ;
+        case '-': n3 = n1-n2 ; break ;
+        case '/': n3 = n1/n2 ; break ;
+        case '*': n3 = n1*n2 ; break ;
+        case '%': n3 = n1%n2 ; break ;
+        case '^': n3 = pow(n1,n2) ; break ;
+        default : printf("\nUnknown operator"); exit(EXIT_FAILURE);
       }
       stk_push_s8(stk, n3 + '0');
     }

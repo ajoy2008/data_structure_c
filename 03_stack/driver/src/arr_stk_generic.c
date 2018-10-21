@@ -24,7 +24,7 @@ ARR_STK_* arr_stk_create(size_t stk_size, size_t el_size)
       return NULL ;
   s->top = -1 ;
   s->capacity = stk_size ;
-  s->el_size = el_size ;
+  s->el_size  = el_size ;
   s->arr = (void *)malloc(stk_size * el_size);
   if(s->arr == NULL)
     return NULL ;
@@ -88,8 +88,7 @@ void* arr_stk_pop(ARR_STK_ *s)
 void* arr_stk_top(ARR_STK_ *s)
 {
   void *target = (void *)malloc(s->el_size) ;
-  if(arr_stk_is_empty(s))
-  {
+  if(arr_stk_is_empty(s)) {
     printf("\nStack Underflow Error\n");
     exit(EXIT_FAILURE);
   }

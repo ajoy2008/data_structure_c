@@ -50,27 +50,13 @@ char evaluate(char n1, char n2, char op)
 {
   char n3 = 0 ;
   switch(op) {
-    case '+':
-      n3 = n2+n1 ;
-      break ;
-    case '-':
-      n3 = n2-n1 ;
-      break ;
-    case '/':
-      n3 = n2/n1 ;
-      break ;
-    case '*':
-      n3 = n2*n1 ;
-      break ;
-    case '%':
-      n3 = n2%n1 ;
-      break ;
-    case '^':
-      n3 = pow(n2,n1) ;
-      break ;
-    default :
-      printf("\nUnknown operator");
-      exit(EXIT_FAILURE);
+    case '+': n3 = n2+n1 ; break ;
+    case '-': n3 = n2-n1 ; break ;
+    case '/': n3 = n2/n1 ; break ;
+    case '*': n3 = n2*n1 ; break ;
+    case '%': n3 = n2%n1 ; break ;
+    case '^': n3 = pow(n2,n1) ; break ;
+    default : printf("\nUnknown operator"); exit(EXIT_FAILURE);
   }
   return(n3 + '0');
 }
